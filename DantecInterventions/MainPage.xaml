@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DantecInterventions_.MainPage">
+
+    <Grid Padding="16" RowSpacing="10"
+          RowDefinitions="Auto,*,Auto,Auto,Auto,Auto,Auto">
+        <Label Text="DantecInterventions" FontSize="24" />
+        <CollectionView x:Name="InterventionsView" Grid.Row="1"
+                        SelectionMode="Single"
+                        SelectionChanged="Selection_Changed">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="8" ColumnDefinitions="*,Auto"
+                          RowDefinitions="Auto,Auto">
+                        <Label Text="{Binding Titre}" />
+                        <Label Grid.Row="1" Text="{Binding Priorite}" />
+                        <CheckBox Grid.Column="1" Grid.RowSpan="2"
+                                  IsChecked="{Binding EstTerminee, Mode=OneWay}"
+                                  IsEnabled="False" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Label x:Name="SelectionLabel" Grid.Row="2" />
+        <Entry x:Name="NouveauTitreEntry" Grid.Row="3"
+               Placeholder="Titre de la nouvelle intervention" />
+        <Button Grid.Row="4" Text="Ajouter" Clicked="Ajouter_Clicked" />
+        <Button Grid.Row="5" Text="Marquer terminée"
+                Clicked="Terminer_Clicked" />
+        <Label x:Name="MessageLabel" Grid.Row="6" />
+    </Grid>
+
+</ContentPage>

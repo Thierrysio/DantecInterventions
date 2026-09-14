@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DantecInterventions_.MainPage">
+             x:Class="DantecInterventions_.Vues.InterventionVue"
+             Title="Interventions">
 
     <Grid Padding="16" RowSpacing="10"
-          RowDefinitions="Auto,*,Auto,Auto,Auto,Auto,Auto,Auto">
+          RowDefinitions="Auto,*,Auto,Auto,Auto,Auto">
         <Label Text="DantecInterventions" FontSize="36" />
-        <CollectionView x:Name="InterventionsView" Grid.Row="1"
-                        SelectionMode="Single"
-                        SelectionChanged="Selection_Changed">
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Interventions}"
+                        SelectedItem="{Binding InterventionSelectionnee, Mode=TwoWay}"
+                        SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="8" ColumnDefinitions="*,Auto"
@@ -23,15 +25,15 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Label x:Name="SelectionLabel" Grid.Row="2" />
-        <Entry x:Name="NouveauTitreEntry" Grid.Row="3"
+        <Entry Grid.Row="2" Text="{Binding NouveauTitre}"
                Placeholder="Titre de la nouvelle intervention" />
-        <Entry x:Name="NomTechnicienEntry" Grid.Row="4"
+        <Entry Grid.Row="3" Text="{Binding NomTechnicien}"
                Placeholder="Nom du technicien" />
-        <Button Grid.Row="5" Text="Ajouter"  Command="{Binding AjouterInterventionCommand}" />
-        <Button Grid.Row="6" Text="Marquer terminée"
-                Clicked="Terminer_Clicked" />
-        <Label x:Name="MessageLabel" Grid.Row="7" />
+        <HorizontalStackLayout Grid.Row="4" Spacing="10">
+            <Button Text="Ajouter" Command="{Binding AjouterInterventionCommand}" />
+            <Button Text="Marquer terminée" Command="{Binding TerminerInterventionCommand}" />
+        </HorizontalStackLayout>
+        <Label Grid.Row="5" Text="{Binding Message}" />
     </Grid>
 
 </ContentPage>

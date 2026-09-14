@@ -8,18 +8,23 @@ namespace DantecInterventions_.VuesModeles
 {
     public partial class InterventionVueModele : ObservableObject
     {
-         private string titre = "DantecInterventions";
         [ObservableProperty]
-        private string nouveauTitre = string.Empty;
+        public partial string NouveauTitre { get; set; }
         [ObservableProperty]
-        private Intervention? interventionSelectionnee;
+        public partial string NomTechnicien { get; set; }
+        [ObservableProperty]
+        public partial Intervention? InterventionSelectionnee { get; set; }
+        [ObservableProperty]
+        public partial string Message { get; set; }
 
         private int prochainId = 4;
-        private string message = string.Empty;
         public ObservableCollection<Intervention> Interventions { get; } = new();
 
         public InterventionVueModele()
         {
+            NouveauTitre = string.Empty;
+            NomTechnicien = string.Empty;
+            Message = string.Empty;
             Interventions.Add(new Intervention
             {
                 Id = 1,
@@ -52,7 +57,7 @@ namespace DantecInterventions_.VuesModeles
             string titre = NouveauTitre.Trim();
             if (string.IsNullOrWhiteSpace(titre))
             {
-                message = "Saisissez un titre.";
+                Message = "Saisissez un titre.";
                 return;
             }
             Intervention nouvelle = new()
@@ -61,23 +66,25 @@ namespace DantecInterventions_.VuesModeles
                 Titre = titre,
                 Description = "Demande saisie localement",
                 Priorite = "Normale",
+                NomTechnicien = NomTechnicien.Trim(),
                 EstTerminee = false
             };
             Interventions.Add(nouvelle);
             NouveauTitre = string.Empty;
+            NomTechnicien = string.Empty;
             InterventionSelectionnee = nouvelle;
-            message = "Intervention ajoutée.";
+            Message = "Intervention ajoutée.";
         }
-
+        [RelayCommand]
         private void TerminerIntervention()
         {
             if (InterventionSelectionnee == null)
             {
-                message = "Sélectionnez une intervention.";
+                Message = "Sélectionnez une intervention.";
                 return;
             }
             InterventionSelectionnee.EstTerminee = true;
-            message = "Intervention terminée.";
+            Message = "Intervention terminée.";
         }
     }
 }

@@ -28,7 +28,7 @@
                Placeholder="Titre de la nouvelle intervention" />
         <Entry x:Name="NomTechnicienEntry" Grid.Row="4"
                Placeholder="Nom du technicien" />
-        <Button Grid.Row="5" Text="Ajouter" Clicked="Ajouter_Clicked" />
+        <Button Grid.Row="5" Text="Ajouter"  Command="{Binding AjouterInterventionCommand}" />
         <Button Grid.Row="6" Text="Marquer terminée"
                 Clicked="Terminer_Clicked" />
         <Label x:Name="MessageLabel" Grid.Row="7" />

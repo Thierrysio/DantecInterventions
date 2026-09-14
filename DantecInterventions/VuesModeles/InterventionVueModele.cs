@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using DantecInterventions_.Modeles;
 using System.Collections.ObjectModel;
 
@@ -43,6 +44,29 @@ namespace DantecInterventions_.VuesModeles
                 Priorite = "Basse",
                 EstTerminee = true
             });
+        }
+
+        [RelayCommand]
+        private void AjouterIntervention()
+        {
+            string titre = NouveauTitre.Trim();
+            if (string.IsNullOrWhiteSpace(titre))
+            {
+                Message = "Saisissez un titre.";
+                return;
+            }
+            Intervention nouvelle = new()
+            {
+                Id = prochainId++,
+                Titre = titre,
+                Description = "Demande saisie localement",
+                Priorite = "Normale",
+                EstTerminee = false
+            };
+            Interventions.Add(nouvelle);
+            NouveauTitre = string.Empty;
+            InterventionSelectionnee = nouvelle;
+            Message = "Intervention ajoutée.";
         }
     }
 }

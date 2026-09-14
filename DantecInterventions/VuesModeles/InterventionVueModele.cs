@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace DantecInterventions_.VuesModeles
 {
-    public class InterventionVueModele : ObservableObject
+    public partial class InterventionVueModele : ObservableObject
     {
          private string titre = "DantecInterventions";
         [ObservableProperty]
@@ -18,7 +18,7 @@ namespace DantecInterventions_.VuesModeles
         private string message = string.Empty;
         public ObservableCollection<Intervention> Interventions { get; } = new();
 
-        public MainViewModel()
+        public InterventionVueModele()
         {
             Interventions.Add(new Intervention
             {
@@ -52,7 +52,7 @@ namespace DantecInterventions_.VuesModeles
             string titre = NouveauTitre.Trim();
             if (string.IsNullOrWhiteSpace(titre))
             {
-                Message = "Saisissez un titre.";
+                message = "Saisissez un titre.";
                 return;
             }
             Intervention nouvelle = new()
@@ -66,7 +66,18 @@ namespace DantecInterventions_.VuesModeles
             Interventions.Add(nouvelle);
             NouveauTitre = string.Empty;
             InterventionSelectionnee = nouvelle;
-            Message = "Intervention ajoutée.";
+            message = "Intervention ajoutée.";
+        }
+
+        private void TerminerIntervention()
+        {
+            if (InterventionSelectionnee == null)
+            {
+                message = "Sélectionnez une intervention.";
+                return;
+            }
+            InterventionSelectionnee.EstTerminee = true;
+            message = "Intervention terminée.";
         }
     }
 }
